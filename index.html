@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Weekly Schedule</title>
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --accent-dark: #0b2540; /* deep navy for headings/text */
+      --pink: #ffd8ea;
+      --yellow: #fff0c6;
+      --blue: #d8f7fb;
+      --pill-padding: 16px 24px;
+      --pill-radius: 999px;
+      --gap-x: 28px;
+      --gap-y: 12px;
+      --container-max: 1200px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Baloo 2", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:var(--accent-dark);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:28px;
+    }
+
+    /* Outer wrapper to center */
+    .wrap{
+      max-width:var(--container-max);
+      margin:0 auto;
+    }
+
+    /* Top title */
+    .title{
+      text-align:center;
+      margin:12px 0 28px;
+      font-weight:800;
+      font-size:64px;
+      letter-spacing:1px;
+      color:var(--accent-dark);
+    }
+
+    /* layout grid */
+    .schedule {
+      display: grid;
+      grid-template-columns: 140px repeat(5, 1fr);
+      gap: var(--gap-y) var(--gap-x);
+      align-items:start;
+      background:transparent;
+    }
+
+    /* Day headers (top row) uses the same grid */
+    .day-header{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:12px 8px;
+      font-weight:700;
+      border-radius:28px;
+      height:48px;
+      font-size:18px;
+      color:var(--accent-dark);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.03) inset;
+    }
+
+    /* time column header empty (to align) */
+    .time-header { visibility:hidden; }
+
+    /* specific colors for each day column header */
+    .monday   { background: var(--pink); }
+    .tuesday  { background: var(--yellow); }
+    .wednesday{ background: var(--pink); }
+    .thursday { background: var(--yellow); }
+    .friday   { background: var(--pink); }
+
+    /* times column */
+    .times {
+      display:flex;
+      flex-direction:column;
+      gap: var(--gap-y);
+      padding-right:6px;
+    }
+
+    .time-pill{
+      width:100%;
+      min-height:44px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:var(--pill-radius);
+      background:var(--blue);
+      font-weight:700;
+      box-shadow: 0 6px 12px rgba(13,39,65,0.03);
+    }
+
+    /* Each day column is a container of pills stacked vertically */
+    .day-col{
+      display:flex;
+      flex-direction:column;
+      gap: var(--gap-y);
+    }
+
+    .slot{
+      min-height:44px;
+      display:flex;
+      align-items:center;
+      padding-left:18px;
+      padding-right:18px;
+      border-radius:var(--pill-radius);
+      box-shadow: 0 6px 12px rgba(13,39,65,0.03);
+      font-weight:600;
+    }
+
+    /* Day slot colors (alternate) */
+    .day-col.monday   .slot{ background: var(--pink); }
+    .day-col.tuesday  .slot{ background: var(--yellow); }
+    .day-col.wednesday .slot{ background: var(--pink); }
+    .day-col.thursday .slot{ background: var(--yellow); }
+    .day-col.friday   .slot{ background: var(--pink); }
+
+    /* small decorative left margin for the grid so it breathes */
+    .schedule { padding: 8px 6px 36px 6px; }
+
+    /* Note bar at bottom spanning full width */
+    .note {
+      margin-top:34px;
+      display:block;
+      background:var(--blue);
+      border-radius:999px;
+      padding:16px 20px;
+      font-weight:700;
+      color:var(--accent-dark);
+      box-shadow: 0 6px 12px rgba(13,39,65,0.03);
+      max-width: calc(var(--container-max) - 56px);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width:1100px){
+      .title{font-size:48px}
+      .schedule{grid-template-columns:110px repeat(5, 1fr)}
+    }
+    @media (max-width:820px){
+      .title{font-size:36px}
+      .schedule{grid-template-columns: 90px repeat(2, 1fr); grid-auto-rows: auto;}
+      /* make days flow into multiple rows on small screens */
+      /* We'll stack day columns below the grid by spanning them full width */
+      .day-header, .day-col { font-size:14px; }
+    }
+
+    /* small finishing touches */
+    .time-pill, .slot { color: #073047; }
+    .time-pill { letter-spacing: .6px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <h1 class="title">Weekly schedule</h1>
+
+    <!-- grid: first cell is time header (hidden) then day headers -->
+    <div class="schedule" role="table" aria-label="weekly schedule">
+      <div class="time-header"></div>
+
+      <div class="day-header monday">Monday</div>
+      <div class="day-header tuesday">Tuesday</div>
+      <div class="day-header wednesday">Wednesday</div>
+      <div class="day-header thursday">Thursday</div>
+      <div class="day-header friday">Friday</div>
+
+      <!-- Times column -->
+      <div class="times" aria-hidden="true">
+        <div class="time-pill">08:00</div>
+        <div class="time-pill">09:00</div>
+        <div class="time-pill">10:00</div>
+        <div class="time-pill">11:00</div>
+        <div class="time-pill">12:00</div>
+        <div class="time-pill">13:00</div>
+        <div class="time-pill">14:00</div>
+        <div class="time-pill">15:00</div>
+        <div class="time-pill">16:00</div>
+      </div>
+
+      <!-- Monday column -->
+      <div class="day-col monday" role="column">
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+      </div>
+
+      <!-- Tuesday column -->
+      <div class="day-col tuesday" role="column">
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+      </div>
+
+      <!-- Wednesday column -->
+      <div class="day-col wednesday" role="column">
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+      </div>
+
+      <!-- Thursday column -->
+      <div class="day-col thursday" role="column">
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+      </div>
+
+      <!-- Friday column -->
+      <div class="day-col friday" role="column">
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+        <div class="slot">&nbsp;</div>
+      </div>
+    </div>
+
+    <div class="note"><strong>Note:</strong> add your remarks here</div>
+
+  </div>
+</body>
+</html>
